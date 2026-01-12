@@ -33,7 +33,7 @@ const StartupRiskVisualizer = () => {
       }
       .milestone-row {
         display: grid;
-        grid-template-columns: 40px 1fr 120px 100px 80px 100px;
+        grid-template-columns: 40px 2fr 1.5fr 120px 100px 100px;
         gap: 16px;
         align-items: center;
       }
@@ -41,6 +41,9 @@ const StartupRiskVisualizer = () => {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+      .milestone-controls-wrapper {
+        display: contents;
       }
 
       @media (max-width: 768px) {
@@ -73,8 +76,21 @@ const StartupRiskVisualizer = () => {
         }
         .milestone-checkbox { grid-area: check; }
         .milestone-name { grid-area: name; }
-        .milestone-controls { grid-area: controls; display: flex; gap: 8px; flex-wrap: wrap; }
         .milestone-question { display: none; }
+        .milestone-controls-wrapper {
+          grid-area: controls;
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .milestone-risk,
+        .milestone-months {
+          flex: 1;
+          min-width: 100px;
+        }
+        .milestone-impact {
+          min-width: 80px;
+        }
       }
 
       @media (max-width: 480px) {
@@ -939,13 +955,13 @@ const StartupRiskVisualizer = () => {
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap'
                 }}>
-                  {milestone.question.slice(0, 40)}...
+                  {milestone.question.slice(0, 50)}...
                 </div>
 
-                {/* Controls for mobile */}
-                <div className="milestone-controls">
+                {/* Controls wrapper - display:contents on desktop, flex on mobile */}
+                <div className="milestone-controls-wrapper">
                   {/* Risk Slider */}
-                  <div onClick={(e) => e.stopPropagation()} style={{ flex: '1', minWidth: '100px' }}>
+                  <div className="milestone-risk" onClick={(e) => e.stopPropagation()}>
                     <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
                       Risk: {(milestone.risk * 100).toFixed(0)}%
                     </div>
@@ -961,7 +977,7 @@ const StartupRiskVisualizer = () => {
                   </div>
 
                   {/* Months */}
-                  <div onClick={(e) => e.stopPropagation()} style={{ minWidth: '80px' }}>
+                  <div className="milestone-months" onClick={(e) => e.stopPropagation()}>
                     <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
                       Months
                     </div>
@@ -984,7 +1000,7 @@ const StartupRiskVisualizer = () => {
                   </div>
 
                   {/* Impact */}
-                  <div style={{ textAlign: 'right', minWidth: '80px' }}>
+                  <div className="milestone-impact" style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>De-risk</div>
                     <div style={{
                       color: '#22c55e',
