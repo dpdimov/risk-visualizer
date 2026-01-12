@@ -1,7 +1,96 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 const StartupRiskVisualizer = () => {
+  // Add responsive CSS
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .framework-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .model-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .investment-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .milestone-row {
+        display: grid;
+        grid-template-columns: 40px 1fr 120px 100px 80px 100px;
+        gap: 16px;
+        align-items: center;
+      }
+      .milestone-question {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 768px) {
+        .metrics-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .chart-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .framework-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .model-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .investment-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .milestone-row {
+          grid-template-columns: 28px 1fr;
+          gap: 12px;
+          grid-template-areas:
+            "check name"
+            "check controls";
+        }
+        .milestone-checkbox { grid-area: check; }
+        .milestone-name { grid-area: name; }
+        .milestone-controls { grid-area: controls; display: flex; gap: 8px; flex-wrap: wrap; }
+        .milestone-question { display: none; }
+      }
+
+      @media (max-width: 480px) {
+        .metrics-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .framework-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
   const [milestones, setMilestones] = useState([
     { 
       id: 1, 
@@ -223,15 +312,15 @@ const StartupRiskVisualizer = () => {
       fontFamily: "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif",
       background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
       minHeight: '100vh',
-      padding: '32px',
+      padding: 'clamp(16px, 4vw, 32px)',
       color: '#e2e8f0'
     }}>
       {/* Header */}
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '32px' }}>
-          <h1 style={{ 
-            fontSize: '2.5rem', 
-            fontWeight: '300', 
+        <div style={{ marginBottom: 'clamp(20px, 4vw, 32px)' }}>
+          <h1 style={{
+            fontSize: 'clamp(1.75rem, 5vw, 2.5rem)',
+            fontWeight: '300',
             letterSpacing: '-0.02em',
             marginBottom: '8px',
             background: 'linear-gradient(90deg, #f8fafc, #94a3b8)',
@@ -240,18 +329,13 @@ const StartupRiskVisualizer = () => {
           }}>
             Startup Risk Visualizer
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>
+          <p style={{ color: '#94a3b8', fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)' }}>
             Multiplicative risk framework for entrepreneurial finance
           </p>
         </div>
 
         {/* Key Metrics Dashboard */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '16px',
-          marginBottom: '32px'
-        }}>
+        <div className="metrics-grid" style={{ marginBottom: 'clamp(20px, 4vw, 32px)' }}>
           <div style={{
             background: 'rgba(239, 68, 68, 0.1)',
             border: '1px solid rgba(239, 68, 68, 0.3)',
@@ -384,7 +468,7 @@ const StartupRiskVisualizer = () => {
 
         {/* Main Content Area - Journey View */}
         {viewMode === 'journey' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+          <div className="chart-grid" style={{ marginBottom: 'clamp(20px, 4vw, 32px)' }}>
             
             {/* Chart */}
             <div style={{
@@ -568,7 +652,7 @@ const StartupRiskVisualizer = () => {
               </h3>
               
               {/* Four Assessment Criteria */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
+              <div className="framework-grid" style={{ marginBottom: '24px' }}>
                 {Object.entries(milestonesByAssessment).map(([assessment, ms]) => {
                   const achievedCount = ms.filter(m => m.achieved).length;
                   const totalRisk = ms.filter(m => !m.achieved).reduce((a, m) => a + m.risk, 0);
@@ -638,7 +722,7 @@ const StartupRiskVisualizer = () => {
               <h4 style={{ marginBottom: '16px', fontWeight: '500', color: '#f8fafc' }}>
                 Four Business Models
               </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+              <div className="model-grid">
                 {['Revenue Model', 'Cost Model', 'Cash Model', 'Investment Model'].map(model => {
                   const modelMilestones = milestones.filter(m => m.model === model);
                   return (
@@ -778,14 +862,11 @@ const StartupRiskVisualizer = () => {
           </h3>
           <div style={{ display: 'grid', gap: '12px' }}>
             {milestones.map((milestone, idx) => (
-              <div 
+              <div
                 key={milestone.id}
+                className="milestone-row"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '40px 1fr 120px 100px 80px 100px',
-                  gap: '16px',
-                  alignItems: 'center',
-                  padding: '16px',
+                  padding: 'clamp(12px, 2vw, 16px)',
                   background: milestone.achieved ? 'rgba(34, 197, 94, 0.1)' : 'rgba(0,0,0,0.2)',
                   borderRadius: '10px',
                   border: milestone.achieved ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid rgba(255,255,255,0.05)',
@@ -795,7 +876,8 @@ const StartupRiskVisualizer = () => {
                 onClick={() => setSelectedMilestone(milestone)}
               >
                 {/* Checkbox */}
-                <div 
+                <div
+                  className="milestone-checkbox"
                   onClick={(e) => { e.stopPropagation(); toggleMilestone(milestone.id); }}
                   style={{
                     width: '28px',
@@ -818,19 +900,20 @@ const StartupRiskVisualizer = () => {
                 </div>
 
                 {/* Name and Tags */}
-                <div>
-                  <div style={{ 
-                    fontWeight: '500', 
+                <div className="milestone-name">
+                  <div style={{
+                    fontWeight: '500',
                     color: milestone.achieved ? '#86efac' : '#f8fafc',
-                    marginBottom: '4px'
+                    marginBottom: '4px',
+                    fontSize: 'clamp(0.9rem, 2vw, 1rem)'
                   }}>
                     {idx + 1}. {milestone.name}
                   </div>
-                  <div style={{ display: 'flex', gap: '6px' }}>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <span style={{
                       padding: '2px 8px',
                       borderRadius: '10px',
-                      fontSize: '0.7rem',
+                      fontSize: 'clamp(0.65rem, 1.5vw, 0.7rem)',
                       background: assessmentColors[milestone.assessment].bg,
                       color: assessmentColors[milestone.assessment].text
                     }}>
@@ -839,7 +922,7 @@ const StartupRiskVisualizer = () => {
                     <span style={{
                       padding: '2px 8px',
                       borderRadius: '10px',
-                      fontSize: '0.7rem',
+                      fontSize: 'clamp(0.65rem, 1.5vw, 0.7rem)',
                       background: 'rgba(255,255,255,0.1)',
                       color: modelColors[milestone.model]
                     }}>
@@ -849,8 +932,8 @@ const StartupRiskVisualizer = () => {
                 </div>
 
                 {/* Question Preview */}
-                <div style={{ 
-                  fontSize: '0.75rem', 
+                <div className="milestone-question" style={{
+                  fontSize: '0.75rem',
                   color: '#94a3b8',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -859,54 +942,57 @@ const StartupRiskVisualizer = () => {
                   {milestone.question.slice(0, 40)}...
                 </div>
 
-                {/* Risk Slider */}
-                <div onClick={(e) => e.stopPropagation()}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
-                    Risk: {(milestone.risk * 100).toFixed(0)}%
+                {/* Controls for mobile */}
+                <div className="milestone-controls">
+                  {/* Risk Slider */}
+                  <div onClick={(e) => e.stopPropagation()} style={{ flex: '1', minWidth: '100px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
+                      Risk: {(milestone.risk * 100).toFixed(0)}%
+                    </div>
+                    <input
+                      type="range"
+                      min="0.05"
+                      max="0.60"
+                      step="0.01"
+                      value={milestone.risk}
+                      onChange={(e) => updateRisk(milestone.id, e.target.value)}
+                      style={{ width: '100%', accentColor: '#ef4444' }}
+                    />
                   </div>
-                  <input
-                    type="range"
-                    min="0.05"
-                    max="0.60"
-                    step="0.01"
-                    value={milestone.risk}
-                    onChange={(e) => updateRisk(milestone.id, e.target.value)}
-                    style={{ width: '100%', accentColor: '#ef4444' }}
-                  />
-                </div>
 
-                {/* Months */}
-                <div onClick={(e) => e.stopPropagation()}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
-                    Months
+                  {/* Months */}
+                  <div onClick={(e) => e.stopPropagation()} style={{ minWidth: '80px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
+                      Months
+                    </div>
+                    <input
+                      type="number"
+                      min="1"
+                      max="36"
+                      value={milestone.months}
+                      onChange={(e) => updateMonths(milestone.id, e.target.value)}
+                      style={{
+                        width: '60px',
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        border: '1px solid #4b5563',
+                        background: 'rgba(0,0,0,0.3)',
+                        color: '#f8fafc',
+                        fontSize: '0.9rem'
+                      }}
+                    />
                   </div>
-                  <input
-                    type="number"
-                    min="1"
-                    max="36"
-                    value={milestone.months}
-                    onChange={(e) => updateMonths(milestone.id, e.target.value)}
-                    style={{
-                      width: '60px',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                      border: '1px solid #4b5563',
-                      background: 'rgba(0,0,0,0.3)',
-                      color: '#f8fafc',
-                      fontSize: '0.9rem'
-                    }}
-                  />
-                </div>
 
-                {/* Impact */}
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>De-risk</div>
-                  <div style={{ 
-                    color: '#22c55e', 
-                    fontWeight: '600',
-                    opacity: milestone.achieved ? 0.5 : 1
-                  }}>
-                    -{(milestone.risk * 100).toFixed(0)}pp
+                  {/* Impact */}
+                  <div style={{ textAlign: 'right', minWidth: '80px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>De-risk</div>
+                    <div style={{
+                      color: '#22c55e',
+                      fontWeight: '600',
+                      opacity: milestone.achieved ? 0.5 : 1
+                    }}>
+                      -{(milestone.risk * 100).toFixed(0)}pp
+                    </div>
                   </div>
                 </div>
               </div>
@@ -925,7 +1011,7 @@ const StartupRiskVisualizer = () => {
           <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#f8fafc' }}>
             Investment Implications
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+          <div className="investment-grid">
             <div>
               <div style={{ color: '#94a3b8', marginBottom: '8px' }}>At Current Stage</div>
               <div style={{ fontSize: '0.95rem', color: '#cbd5e1' }}>
