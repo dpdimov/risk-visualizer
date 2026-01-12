@@ -671,7 +671,10 @@ const StartupRiskVisualizer = () => {
               <div className="framework-grid" style={{ marginBottom: '24px' }}>
                 {Object.entries(milestonesByAssessment).map(([assessment, ms]) => {
                   const achievedCount = ms.filter(m => m.achieved).length;
-                  const totalRisk = ms.filter(m => !m.achieved).reduce((a, m) => a + m.risk, 0);
+                  const unachieved = ms.filter(m => !m.achieved);
+                  const compositeRisk = unachieved.length > 0
+                    ? 1 - unachieved.reduce((acc, m) => acc * (1 - m.risk), 1)
+                    : 0;
                   return (
                     <div 
                       key={assessment}
@@ -721,13 +724,13 @@ const StartupRiskVisualizer = () => {
                           </div>
                         ))}
                       </div>
-                      <div style={{ 
+                      <div style={{
                         borderTop: `1px solid ${assessmentColors[assessment].border}`,
                         paddingTop: '8px',
                         fontSize: '0.8rem',
                         color: assessmentColors[assessment].text
                       }}>
-                        {achievedCount}/{ms.length} achieved • {(totalRisk * 100).toFixed(0)}% remaining risk
+                        {achievedCount}/{ms.length} achieved • {(compositeRisk * 100).toFixed(0)}% remaining risk
                       </div>
                     </div>
                   );
