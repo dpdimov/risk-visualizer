@@ -326,10 +326,10 @@ const StartupRiskVisualizer = () => {
   return (
     <div style={{
       fontFamily: "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%)',
       minHeight: '100vh',
       padding: 'clamp(16px, 4vw, 32px)',
-      color: '#e2e8f0'
+      color: '#1e293b'
     }}>
       {/* Header */}
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -339,13 +339,13 @@ const StartupRiskVisualizer = () => {
             fontWeight: '300',
             letterSpacing: '-0.02em',
             marginBottom: '8px',
-            background: 'linear-gradient(90deg, #f8fafc, #94a3b8)',
+            background: 'linear-gradient(90deg, #1e293b, #475569)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}>
             Startup Risk Visualizer
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)' }}>
+          <p style={{ color: '#64748b', fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)' }}>
             Multiplicative risk framework for entrepreneurial finance
           </p>
         </div>
@@ -395,7 +395,7 @@ const StartupRiskVisualizer = () => {
             <div style={{ fontSize: '2rem', fontWeight: '600', color: '#a855f7' }}>
               {calculations.irr === Infinity || calculations.irr > 999 ? '>999%' : calculations.irr.toFixed(0)}%
             </div>
-            <div style={{ color: '#94a3b8', fontSize: '0.75rem' }}>
+            <div style={{ color: '#64748b', fontSize: '0.75rem' }}>
               over {calculations.remainingYears.toFixed(1)} years
             </div>
           </div>
@@ -409,8 +409,8 @@ const StartupRiskVisualizer = () => {
               padding: '10px 20px',
               borderRadius: '8px',
               border: 'none',
-              background: viewMode === 'journey' ? '#3b82f6' : 'rgba(255,255,255,0.1)',
-              color: viewMode === 'journey' ? '#fff' : '#94a3b8',
+              background: viewMode === 'journey' ? '#3b82f6' : '#ffffff',
+              color: viewMode === 'journey' ? '#fff' : '#64748b',
               cursor: 'pointer',
               fontWeight: '500',
               transition: 'all 0.2s'
@@ -424,8 +424,8 @@ const StartupRiskVisualizer = () => {
               padding: '10px 20px',
               borderRadius: '8px',
               border: 'none',
-              background: viewMode === 'framework' ? '#3b82f6' : 'rgba(255,255,255,0.1)',
-              color: viewMode === 'framework' ? '#fff' : '#94a3b8',
+              background: viewMode === 'framework' ? '#3b82f6' : '#ffffff',
+              color: viewMode === 'framework' ? '#fff' : '#64748b',
               cursor: 'pointer',
               fontWeight: '500',
               transition: 'all 0.2s'
@@ -439,8 +439,8 @@ const StartupRiskVisualizer = () => {
               padding: '10px 20px',
               borderRadius: '8px',
               border: 'none',
-              background: showFormulas ? '#059669' : 'rgba(255,255,255,0.1)',
-              color: showFormulas ? '#fff' : '#94a3b8',
+              background: showFormulas ? '#059669' : '#ffffff',
+              color: showFormulas ? '#fff' : '#64748b',
               cursor: 'pointer',
               fontWeight: '500',
               marginLeft: 'auto',
@@ -454,29 +454,30 @@ const StartupRiskVisualizer = () => {
         {/* Formulas Panel */}
         {showFormulas && (
           <div style={{
-            background: 'rgba(0,0,0,0.3)',
+            background: '#f1f5f9',
             borderRadius: '12px',
             padding: '20px',
             marginBottom: '24px',
             fontFamily: "'IBM Plex Mono', monospace",
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            border: '1px solid #e2e8f0'
           }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
               <div>
-                <span style={{ color: '#94a3b8' }}>Composite Risk = </span>
-                <span style={{ color: '#f8fafc' }}>1 - ∏(1 - rᵢ)</span>
+                <span style={{ color: '#64748b' }}>Composite Risk = </span>
+                <span style={{ color: '#1e293b' }}>1 - ∏(1 - rᵢ)</span>
               </div>
               <div>
-                <span style={{ color: '#94a3b8' }}>Required Multiple = </span>
-                <span style={{ color: '#f8fafc' }}>1 / P(success)</span>
+                <span style={{ color: '#64748b' }}>Required Multiple = </span>
+                <span style={{ color: '#1e293b' }}>1 / P(success)</span>
               </div>
               <div>
-                <span style={{ color: '#94a3b8' }}>IRR = </span>
-                <span style={{ color: '#f8fafc' }}>(Multiple)^(1/years) - 1</span>
+                <span style={{ color: '#64748b' }}>IRR = </span>
+                <span style={{ color: '#1e293b' }}>(Multiple)^(1/years) - 1</span>
               </div>
               <div>
-                <span style={{ color: '#94a3b8' }}>Total Timeline = </span>
-                <span style={{ color: '#f8fafc' }}>{milestones.reduce((a, m) => a + m.months, 0)} months ({(milestones.reduce((a, m) => a + m.months, 0) / 12).toFixed(1)} years)</span>
+                <span style={{ color: '#64748b' }}>Total Timeline = </span>
+                <span style={{ color: '#1e293b' }}>{milestones.reduce((a, m) => a + m.months, 0)} months ({(milestones.reduce((a, m) => a + m.months, 0) / 12).toFixed(1)} years)</span>
               </div>
             </div>
           </div>
@@ -488,12 +489,12 @@ const StartupRiskVisualizer = () => {
             
             {/* Chart */}
             <div style={{
-              background: 'rgba(255,255,255,0.05)',
+              background: '#ffffff',
               borderRadius: '16px',
               padding: '24px',
-              border: '1px solid rgba(255,255,255,0.1)'
+              border: '1px solid #e2e8f0'
             }}>
-              <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#f8fafc' }}>
+              <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#1e293b' }}>
                 Risk Reduction Journey
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -508,7 +509,7 @@ const StartupRiskVisualizer = () => {
                       <stop offset="95%" stopColor="#22c55e" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                   <XAxis 
                     dataKey="stage" 
                     tick={{ fill: '#94a3b8', fontSize: 10 }} 
@@ -523,8 +524,8 @@ const StartupRiskVisualizer = () => {
                   />
                   <Tooltip 
                     contentStyle={{ 
-                      background: '#1e293b', 
-                      border: '1px solid #334155',
+                      background: '#f1f5f9', 
+                      border: '1px solid #e2e8f0',
                       borderRadius: '8px'
                     }}
                     formatter={(value, name) => [`${value.toFixed(1)}%`, name]}
@@ -549,15 +550,15 @@ const StartupRiskVisualizer = () => {
 
             {/* Selected Milestone Detail or Summary */}
             <div style={{
-              background: 'rgba(255,255,255,0.05)',
+              background: '#ffffff',
               borderRadius: '16px',
               padding: '24px',
-              border: '1px solid rgba(255,255,255,0.1)'
+              border: '1px solid #e2e8f0'
             }}>
               {selectedMilestone ? (
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
-                    <h3 style={{ fontWeight: '500', color: '#f8fafc' }}>
+                    <h3 style={{ fontWeight: '500', color: '#1e293b' }}>
                       {selectedMilestone.name}
                     </h3>
                     <button 
@@ -565,7 +566,7 @@ const StartupRiskVisualizer = () => {
                       style={{
                         background: 'none',
                         border: 'none',
-                        color: '#94a3b8',
+                        color: '#64748b',
                         cursor: 'pointer',
                         fontSize: '1.2rem'
                       }}
@@ -596,22 +597,22 @@ const StartupRiskVisualizer = () => {
                     </span>
                   </div>
                   <div style={{ marginBottom: '16px' }}>
-                    <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Key Question</div>
-                    <div style={{ color: '#f8fafc', fontStyle: 'italic' }}>"{selectedMilestone.question}"</div>
+                    <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Key Question</div>
+                    <div style={{ color: '#1e293b', fontStyle: 'italic' }}>"{selectedMilestone.question}"</div>
                   </div>
                   <div style={{ marginBottom: '16px' }}>
-                    <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Evidence of Achievement</div>
-                    <div style={{ color: '#cbd5e1' }}>{selectedMilestone.evidence}</div>
+                    <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Evidence of Achievement</div>
+                    <div style={{ color: '#475569' }}>{selectedMilestone.evidence}</div>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Stage Risk</div>
+                      <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Stage Risk</div>
                       <div style={{ color: '#ef4444', fontSize: '1.5rem', fontWeight: '600' }}>
                         {(selectedMilestone.risk * 100).toFixed(0)}%
                       </div>
                     </div>
                     <div>
-                      <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Duration</div>
+                      <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Duration</div>
                       <div style={{ color: '#3b82f6', fontSize: '1.5rem', fontWeight: '600' }}>
                         {selectedMilestone.months} months
                       </div>
@@ -620,24 +621,24 @@ const StartupRiskVisualizer = () => {
                 </div>
               ) : (
                 <div>
-                  <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#f8fafc' }}>
+                  <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#1e293b' }}>
                     Journey Summary
                   </h3>
-                  <div style={{ color: '#94a3b8', marginBottom: '16px', lineHeight: '1.6' }}>
+                  <div style={{ color: '#64748b', marginBottom: '16px', lineHeight: '1.6' }}>
                     Click on any milestone below to see detailed information about the key question, evidence of achievement, and risk parameters.
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px' }}>
-                      <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Total Journey</div>
-                      <div style={{ color: '#f8fafc', fontSize: '1.5rem', fontWeight: '600' }}>
+                    <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px' }}>
+                      <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Total Journey</div>
+                      <div style={{ color: '#1e293b', fontSize: '1.5rem', fontWeight: '600' }}>
                         {milestones.reduce((a, m) => a + m.months, 0)} months
                       </div>
                       <div style={{ color: '#64748b', fontSize: '0.8rem' }}>
                         ({(milestones.reduce((a, m) => a + m.months, 0) / 12).toFixed(1)} years)
                       </div>
                     </div>
-                    <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px' }}>
-                      <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Time Remaining</div>
+                    <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px' }}>
+                      <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Time Remaining</div>
                       <div style={{ color: '#3b82f6', fontSize: '1.5rem', fontWeight: '600' }}>
                         {calculations.remainingMonths} months
                       </div>
@@ -657,13 +658,13 @@ const StartupRiskVisualizer = () => {
           <div style={{ marginBottom: '32px' }}>
             {/* Assessment Criteria x Models Matrix */}
             <div style={{
-              background: 'rgba(255,255,255,0.05)',
+              background: '#ffffff',
               borderRadius: '16px',
               padding: '24px',
-              border: '1px solid rgba(255,255,255,0.1)',
+              border: '1px solid #e2e8f0',
               marginBottom: '24px'
             }}>
-              <h3 style={{ marginBottom: '20px', fontWeight: '500', color: '#f8fafc' }}>
+              <h3 style={{ marginBottom: '20px', fontWeight: '500', color: '#1e293b' }}>
                 Assessment Criteria & Business Models
               </h3>
               
@@ -738,7 +739,7 @@ const StartupRiskVisualizer = () => {
               </div>
 
               {/* Four Business Models */}
-              <h4 style={{ marginBottom: '16px', fontWeight: '500', color: '#f8fafc' }}>
+              <h4 style={{ marginBottom: '16px', fontWeight: '500', color: '#1e293b' }}>
                 Four Business Models
               </h4>
               <div className="model-grid">
@@ -748,7 +749,7 @@ const StartupRiskVisualizer = () => {
                     <div 
                       key={model}
                       style={{
-                        background: 'rgba(0,0,0,0.3)',
+                        background: '#f1f5f9',
                         borderRadius: '12px',
                         padding: '16px',
                         borderLeft: `4px solid ${modelColors[model]}`
@@ -769,7 +770,7 @@ const StartupRiskVisualizer = () => {
                             onClick={() => setSelectedMilestone(m)}
                             style={{ 
                               fontSize: '0.85rem', 
-                              color: '#cbd5e1',
+                              color: '#475569',
                               opacity: m.achieved ? 0.5 : 1,
                               textDecoration: m.achieved ? 'line-through' : 'none',
                               marginBottom: '4px',
@@ -794,13 +795,13 @@ const StartupRiskVisualizer = () => {
             {/* Selected Milestone Detail Panel */}
             {selectedMilestone && (
               <div style={{
-                background: 'rgba(255,255,255,0.05)',
+                background: '#ffffff',
                 borderRadius: '16px',
                 padding: '24px',
-                border: '1px solid rgba(255,255,255,0.1)'
+                border: '1px solid #e2e8f0'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
-                  <h3 style={{ fontWeight: '500', color: '#f8fafc' }}>
+                  <h3 style={{ fontWeight: '500', color: '#1e293b' }}>
                     #{selectedMilestone.id} {selectedMilestone.name}
                   </h3>
                   <button 
@@ -808,7 +809,7 @@ const StartupRiskVisualizer = () => {
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: '#94a3b8',
+                      color: '#64748b',
                       cursor: 'pointer',
                       fontSize: '1.2rem'
                     }}
@@ -842,13 +843,13 @@ const StartupRiskVisualizer = () => {
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                       <div>
-                        <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Stage Risk</div>
+                        <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Stage Risk</div>
                         <div style={{ color: '#ef4444', fontSize: '1.5rem', fontWeight: '600' }}>
                           {(selectedMilestone.risk * 100).toFixed(0)}%
                         </div>
                       </div>
                       <div>
-                        <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Duration</div>
+                        <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Duration</div>
                         <div style={{ color: '#3b82f6', fontSize: '1.5rem', fontWeight: '600' }}>
                           {selectedMilestone.months} mo
                         </div>
@@ -856,12 +857,12 @@ const StartupRiskVisualizer = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Key Question</div>
-                    <div style={{ color: '#f8fafc', fontStyle: 'italic', lineHeight: '1.5' }}>"{selectedMilestone.question}"</div>
+                    <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Key Question</div>
+                    <div style={{ color: '#1e293b', fontStyle: 'italic', lineHeight: '1.5' }}>"{selectedMilestone.question}"</div>
                   </div>
                   <div>
-                    <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '4px' }}>Evidence of Achievement</div>
-                    <div style={{ color: '#cbd5e1', lineHeight: '1.5' }}>{selectedMilestone.evidence}</div>
+                    <div style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '4px' }}>Evidence of Achievement</div>
+                    <div style={{ color: '#475569', lineHeight: '1.5' }}>{selectedMilestone.evidence}</div>
                   </div>
                 </div>
               </div>
@@ -871,12 +872,12 @@ const StartupRiskVisualizer = () => {
 
         {/* Milestones Grid */}
         <div style={{
-          background: 'rgba(255,255,255,0.05)',
+          background: '#ffffff',
           borderRadius: '16px',
           padding: '24px',
-          border: '1px solid rgba(255,255,255,0.1)'
+          border: '1px solid #e2e8f0'
         }}>
-          <h3 style={{ marginBottom: '20px', fontWeight: '500', color: '#f8fafc' }}>
+          <h3 style={{ marginBottom: '20px', fontWeight: '500', color: '#1e293b' }}>
             9-Milestone Framework
           </h3>
           <div style={{ display: 'grid', gap: '12px' }}>
@@ -953,7 +954,7 @@ const StartupRiskVisualizer = () => {
                 {/* Question Preview */}
                 <div className="milestone-question" style={{
                   fontSize: '0.75rem',
-                  color: '#94a3b8',
+                  color: '#64748b',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap'
@@ -965,7 +966,7 @@ const StartupRiskVisualizer = () => {
                 <div className="milestone-controls-wrapper">
                   {/* Risk Slider */}
                   <div className="milestone-risk" onClick={(e) => e.stopPropagation()}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '2px' }}>
                       Risk: {(milestone.risk * 100).toFixed(0)}%
                     </div>
                     <input
@@ -981,7 +982,7 @@ const StartupRiskVisualizer = () => {
 
                   {/* Months */}
                   <div className="milestone-months" onClick={(e) => e.stopPropagation()}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '2px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '2px' }}>
                       Months
                     </div>
                     <input
@@ -994,9 +995,9 @@ const StartupRiskVisualizer = () => {
                         width: '60px',
                         padding: '4px 8px',
                         borderRadius: '4px',
-                        border: '1px solid #4b5563',
-                        background: 'rgba(0,0,0,0.3)',
-                        color: '#f8fafc',
+                        border: '1px solid #e2e8f0',
+                        background: '#f1f5f9',
+                        color: '#1e293b',
                         fontSize: '0.9rem'
                       }}
                     />
@@ -1004,7 +1005,7 @@ const StartupRiskVisualizer = () => {
 
                   {/* Impact */}
                   <div className="milestone-impact" style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>De-risk</div>
+                    <div style={{ fontSize: '0.75rem', color: '#64748b' }}>De-risk</div>
                     <div style={{
                       color: '#22c55e',
                       fontWeight: '600',
@@ -1022,18 +1023,18 @@ const StartupRiskVisualizer = () => {
         {/* Investment Implications */}
         <div style={{
           marginTop: '24px',
-          background: 'rgba(255,255,255,0.05)',
+          background: '#ffffff',
           borderRadius: '16px',
           padding: '24px',
-          border: '1px solid rgba(255,255,255,0.1)'
+          border: '1px solid #e2e8f0'
         }}>
-          <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#f8fafc' }}>
+          <h3 style={{ marginBottom: '16px', fontWeight: '500', color: '#1e293b' }}>
             Investment Implications
           </h3>
           <div className="investment-grid">
             <div>
-              <div style={{ color: '#94a3b8', marginBottom: '8px' }}>At Current Stage</div>
-              <div style={{ fontSize: '0.95rem', color: '#cbd5e1' }}>
+              <div style={{ color: '#64748b', marginBottom: '8px' }}>At Current Stage</div>
+              <div style={{ fontSize: '0.95rem', color: '#475569' }}>
                 An investor would need <strong style={{ color: '#fbbf24' }}>{calculations.requiredMultiple.toFixed(1)}x</strong> return 
                 over <strong style={{ color: '#3b82f6' }}>{calculations.remainingYears.toFixed(1)} years</strong> to 
                 break even on expected value, implying an IRR 
@@ -1041,17 +1042,17 @@ const StartupRiskVisualizer = () => {
               </div>
             </div>
             <div>
-              <div style={{ color: '#94a3b8', marginBottom: '8px' }}>Milestones Achieved</div>
+              <div style={{ color: '#64748b', marginBottom: '8px' }}>Milestones Achieved</div>
               <div style={{ fontSize: '2rem', fontWeight: '600', color: '#22c55e' }}>
                 {milestones.filter(m => m.achieved).length} / 9
               </div>
-              <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
+              <div style={{ fontSize: '0.85rem', color: '#64748b' }}>
                 {milestones.reduce((a, m) => a + (m.achieved ? m.months : 0), 0)} months of progress
               </div>
             </div>
             <div>
-              <div style={{ color: '#94a3b8', marginBottom: '8px' }}>Typical Funding Stage</div>
-              <div style={{ fontSize: '1.1rem', color: '#f8fafc' }}>
+              <div style={{ color: '#64748b', marginBottom: '8px' }}>Typical Funding Stage</div>
+              <div style={{ fontSize: '1.1rem', color: '#1e293b' }}>
                 {milestones.filter(m => m.achieved).length <= 2 && 'Pre-Seed / Angel'}
                 {milestones.filter(m => m.achieved).length === 3 && 'Seed'}
                 {milestones.filter(m => m.achieved).length === 4 && 'Seed / Series A'}
@@ -1065,13 +1066,15 @@ const StartupRiskVisualizer = () => {
         </div>
 
         {/* Footer */}
-        <div style={{ 
-          marginTop: '32px', 
-          textAlign: 'center', 
+        <div style={{
+          marginTop: '32px',
+          paddingTop: '32px',
+          textAlign: 'center',
           color: '#64748b',
-          fontSize: '0.85rem'
+          fontSize: '0.9rem',
+          borderTop: '1px solid #e2e8f0'
         }}>
-          Entrepreneurial Finance • Dimo Dimov
+          Dimo Dimov | Entrepreneurial Finance Tools
         </div>
       </div>
     </div>
